@@ -1,0 +1,44 @@
+{
+  "extract": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "sentence": "毎朝ランニングして体を動かしています",
+        "hobby": "ランニング"
+      },
+      {
+        "augmented": true,
+        "sentence": "週末はキャンプに行って焚き火を楽しんでいます",
+        "hobby": "キャンプ、焚き火"
+      },
+      {
+        "augmented": true,
+        "sentence": "美術館巡りをして、絵画を鑑賞するのが趣味です",
+        "hobby": "美術館巡り、絵画鑑賞"
+      }
+    ],
+    "signature": {
+      "instructions": "You are a helpful assistant specializing in identifying hobbies from text. Given a sentence, accurately extract the hobby or hobbies mentioned. Respond with the hobby as a string. For example, if the input is “週末はキャンプに行って焚き火を楽しんでいます”, your output should be “キャンプ、焚き火”.",
+      "fields": [
+        {
+          "prefix": "Sentence:",
+          "description": "入力文章"
+        },
+        {
+          "prefix": "Hobby:",
+          "description": "抽出された趣味"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.12",
+      "dspy": "3.0.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}
