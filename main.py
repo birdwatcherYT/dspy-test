@@ -41,8 +41,8 @@ with open("test.json", "r", encoding="utf-8") as f:
     test = json.load(f)
 
 # データ分割
-trainset = [dspy.Example(**d).with_inputs("sentence") for d in train[:20]]
-testset = [dspy.Example(**d).with_inputs("sentence") for d in test[20:]]
+trainset = [dspy.Example(**d).with_inputs("sentence") for d in train]
+testset = [dspy.Example(**d).with_inputs("sentence") for d in test]
 
 
 # メトリック定義
