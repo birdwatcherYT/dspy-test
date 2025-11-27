@@ -48,7 +48,8 @@ testset = [dspy.Example(**d).with_inputs("sentence") for d in test]
 # メトリック定義
 def hobby_metric(example, pred, trace=None):
     # 完全一致または部分一致
-    return example.hobby in pred.hobby or pred.hobby in example.hobby
+    return example.hobby == pred.hobby
+    # return example.hobby in pred.hobby or pred.hobby in example.hobby
 
 
 # 最適化

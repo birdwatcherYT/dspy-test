@@ -1,0 +1,44 @@
+{
+  "extract": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "sentence": "登山が好きで、週末には山に登っています",
+        "hobby": "登山"
+      },
+      {
+        "augmented": true,
+        "sentence": "毎朝ランニングして体を動かしています",
+        "hobby": "ランニング"
+      },
+      {
+        "augmented": true,
+        "sentence": "旅行が好きで、日本全国を巡っています",
+        "hobby": "旅行"
+      }
+    ],
+    "signature": {
+      "instructions": "Extract the hobby mentioned in the following Japanese sentence. Respond with the extracted hobby.",
+      "fields": [
+        {
+          "prefix": "Sentence:",
+          "description": "入力文章"
+        },
+        {
+          "prefix": "Hobby:",
+          "description": "抽出された趣味"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.12",
+      "dspy": "3.0.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}
