@@ -1,0 +1,460 @@
+% uv run python main.py
+Using CPython 3.12.11
+Creating virtual environment at: .venv
+Installed 76 packages in 151ms
+読書
+2025/12/06 06:46:49 INFO dspy.teleprompt.mipro_optimizer_v2:
+RUNNING WITH THE FOLLOWING LIGHT AUTO RUN SETTINGS:
+num_trials: 10
+minibatch: False
+num_fewshot_candidates: 6
+num_instruct_candidates: 3
+valset size: 28
+
+2025/12/06 06:46:49 INFO dspy.teleprompt.mipro_optimizer_v2:
+==> STEP 1: BOOTSTRAP FEWSHOT EXAMPLES <==
+2025/12/06 06:46:49 INFO dspy.teleprompt.mipro_optimizer_v2: These will be used as few-shot example candidates for our program and for creating instructions.
+
+2025/12/06 06:46:49 INFO dspy.teleprompt.mipro_optimizer_v2: Bootstrapping N=6 sets of demonstrations...
+Bootstrapping set 1/6
+Bootstrapping set 2/6
+Bootstrapping set 3/6
+  9%|████████████                                                                                                                                 | 6/70 [00:04<00:46,  1.39it/s]
+Bootstrapped 3 full traces after 6 examples for up to 1 rounds, amounting to 6 attempts.
+Bootstrapping set 4/6
+  6%|████████                                                                                                                                     | 4/70 [00:02<00:44,  1.48it/s]
+Bootstrapped 3 full traces after 4 examples for up to 1 rounds, amounting to 4 attempts.
+Bootstrapping set 5/6
+  3%|████                                                                                                                                         | 2/70 [00:01<00:50,  1.36it/s]
+Bootstrapped 2 full traces after 2 examples for up to 1 rounds, amounting to 2 attempts.
+Bootstrapping set 6/6
+  4%|██████                                                                                                                                       | 3/70 [00:02<00:46,  1.44it/s]
+Bootstrapped 3 full traces after 3 examples for up to 1 rounds, amounting to 3 attempts.
+2025/12/06 06:47:00 INFO dspy.teleprompt.mipro_optimizer_v2:
+==> STEP 2: PROPOSE INSTRUCTION CANDIDATES <==
+2025/12/06 06:47:00 INFO dspy.teleprompt.mipro_optimizer_v2: We will use the few-shot examples from the previous step, a generated dataset summary, a summary of the program code, and a randomly selected prompting tip to propose instructions.
+class HobbyExtraction(dspy.Signature):
+    """趣味は？"""
+
+    # ↑ここに指示を書く↑
+
+    sentence: str = dspy.InputField(desc="入力文章")
+    hobby: str = dspy.OutputField(desc="抽出された趣味")
+
+2025/12/06 06:48:19 INFO dspy.teleprompt.mipro_optimizer_v2:
+Proposing N=3 instructions...
+
+2025/12/06 06:48:53 INFO dspy.teleprompt.mipro_optimizer_v2: Proposed Instructions for Predictor 0:
+
+2025/12/06 06:48:53 INFO dspy.teleprompt.mipro_optimizer_v2: 0: 趣味は？
+
+2025/12/06 06:48:53 INFO dspy.teleprompt.mipro_optimizer_v2: 1: Given a sentence, identify and return the hobby being described.  For example, if the input is "私はギターを練習しています", the output should be "ギター".
+
+2025/12/06 06:48:53 INFO dspy.teleprompt.mipro_optimizer_v2: 2: Given a sentence describing an activity, identify and extract the hobby being pursued. Return only the hobby name.
+
+2025/12/06 06:48:53 INFO dspy.teleprompt.mipro_optimizer_v2:
+
+2025/12/06 06:48:53 INFO dspy.teleprompt.mipro_optimizer_v2: ==> STEP 3: FINDING OPTIMAL PROMPT PARAMETERS <==
+2025/12/06 06:48:53 INFO dspy.teleprompt.mipro_optimizer_v2: We will evaluate the program over a series of trials with different combinations of instructions and few-shot examples to find the optimal combination using Bayesian Optimization.
+
+2025/12/06 06:48:53 INFO dspy.teleprompt.mipro_optimizer_v2: == Trial 1 / 10 - Full Evaluation of Default Program ==
+Average Metric: 18.00 / 28 (64.3%): 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 28/28 [00:11<00:00,  2.54it/s]
+2025/12/06 06:49:04 INFO dspy.evaluate.evaluate: Average Metric: 18 / 28 (64.3%)
+2025/12/06 06:49:04 INFO dspy.teleprompt.mipro_optimizer_v2: Default program score: 64.29
+
+/Users/tomoki.yoshida/Desktop/birdwatcher/dspy-test/.venv/lib/python3.12/site-packages/optuna/_experimental.py:32: ExperimentalWarning: Argument ``multivariate`` is an experimental feature. The interface can change in the future.
+  warnings.warn(
+2025/12/06 06:49:04 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 2 / 10 =====
+Average Metric: 22.00 / 28 (78.6%): 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 28/28 [00:11<00:00,  2.41it/s]
+2025/12/06 06:49:16 INFO dspy.evaluate.evaluate: Average Metric: 22 / 28 (78.6%)
+2025/12/06 06:49:16 INFO dspy.teleprompt.mipro_optimizer_v2: Best full score so far! Score: 78.57
+2025/12/06 06:49:16 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 78.57 with parameters ['Predictor 0: Instruction 1', 'Predictor 0: Few-Shot Set 3'].
+2025/12/06 06:49:16 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [64.29, 78.57]
+2025/12/06 06:49:16 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 78.57
+2025/12/06 06:49:16 INFO dspy.teleprompt.mipro_optimizer_v2: ========================
+
+
+2025/12/06 06:49:16 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 3 / 10 =====
+Average Metric: 21.00 / 28 (75.0%): 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 28/28 [00:12<00:00,  2.33it/s]
+2025/12/06 06:49:28 INFO dspy.evaluate.evaluate: Average Metric: 21 / 28 (75.0%)
+2025/12/06 06:49:28 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 75.0 with parameters ['Predictor 0: Instruction 2', 'Predictor 0: Few-Shot Set 0'].
+2025/12/06 06:49:28 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [64.29, 78.57, 75.0]
+2025/12/06 06:49:28 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 78.57
+2025/12/06 06:49:28 INFO dspy.teleprompt.mipro_optimizer_v2: ========================
+
+
+2025/12/06 06:49:28 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 4 / 10 =====
+Average Metric: 24.00 / 28 (85.7%): 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 28/28 [00:14<00:00,  1.96it/s]
+2025/12/06 06:49:42 INFO dspy.evaluate.evaluate: Average Metric: 24 / 28 (85.7%)
+2025/12/06 06:49:42 INFO dspy.teleprompt.mipro_optimizer_v2: Best full score so far! Score: 85.71
+2025/12/06 06:49:42 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 85.71 with parameters ['Predictor 0: Instruction 1', 'Predictor 0: Few-Shot Set 5'].
+2025/12/06 06:49:42 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [64.29, 78.57, 75.0, 85.71]
+2025/12/06 06:49:42 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 85.71
+2025/12/06 06:49:42 INFO dspy.teleprompt.mipro_optimizer_v2: ========================
+
+
+2025/12/06 06:49:42 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 5 / 10 =====
+Average Metric: 23.00 / 28 (82.1%): 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 28/28 [00:16<00:00,  1.69it/s]
+2025/12/06 06:49:59 INFO dspy.evaluate.evaluate: Average Metric: 23 / 28 (82.1%)
+2025/12/06 06:49:59 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 82.14 with parameters ['Predictor 0: Instruction 2', 'Predictor 0: Few-Shot Set 2'].
+2025/12/06 06:49:59 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [64.29, 78.57, 75.0, 85.71, 82.14]
+2025/12/06 06:49:59 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 85.71
+2025/12/06 06:49:59 INFO dspy.teleprompt.mipro_optimizer_v2: ========================
+
+
+2025/12/06 06:49:59 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 6 / 10 =====
+Average Metric: 21.00 / 28 (75.0%): 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 28/28 [00:19<00:00,  1.43it/s]
+2025/12/06 06:50:18 INFO dspy.evaluate.evaluate: Average Metric: 21 / 28 (75.0%)
+2025/12/06 06:50:18 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 75.0 with parameters ['Predictor 0: Instruction 0', 'Predictor 0: Few-Shot Set 5'].
+2025/12/06 06:50:18 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [64.29, 78.57, 75.0, 85.71, 82.14, 75.0]
+2025/12/06 06:50:18 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 85.71
+2025/12/06 06:50:18 INFO dspy.teleprompt.mipro_optimizer_v2: ========================
+
+
+2025/12/06 06:50:18 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 7 / 10 =====
+Average Metric: 21.00 / 28 (75.0%): 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████| 28/28 [00:00<00:00, 1309.68it/s]
+2025/12/06 06:50:18 INFO dspy.evaluate.evaluate: Average Metric: 21 / 28 (75.0%)
+2025/12/06 06:50:18 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 75.0 with parameters ['Predictor 0: Instruction 2', 'Predictor 0: Few-Shot Set 0'].
+2025/12/06 06:50:18 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [64.29, 78.57, 75.0, 85.71, 82.14, 75.0, 75.0]
+2025/12/06 06:50:18 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 85.71
+2025/12/06 06:50:18 INFO dspy.teleprompt.mipro_optimizer_v2: ========================
+
+
+2025/12/06 06:50:18 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 8 / 10 =====
+Average Metric: 24.00 / 28 (85.7%): 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 28/28 [00:19<00:00,  1.47it/s]
+2025/12/06 06:50:37 INFO dspy.evaluate.evaluate: Average Metric: 24 / 28 (85.7%)
+2025/12/06 06:50:37 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 85.71 with parameters ['Predictor 0: Instruction 2', 'Predictor 0: Few-Shot Set 5'].
+2025/12/06 06:50:37 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [64.29, 78.57, 75.0, 85.71, 82.14, 75.0, 75.0, 85.71]
+2025/12/06 06:50:37 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 85.71
+2025/12/06 06:50:37 INFO dspy.teleprompt.mipro_optimizer_v2: ========================
+
+
+2025/12/06 06:50:37 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 9 / 10 =====
+Average Metric: 20.00 / 28 (71.4%): 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 28/28 [00:16<00:00,  1.75it/s]
+2025/12/06 06:50:53 INFO dspy.evaluate.evaluate: Average Metric: 20 / 28 (71.4%)
+2025/12/06 06:50:53 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 71.43 with parameters ['Predictor 0: Instruction 1', 'Predictor 0: Few-Shot Set 4'].
+2025/12/06 06:50:53 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [64.29, 78.57, 75.0, 85.71, 82.14, 75.0, 75.0, 85.71, 71.43]
+2025/12/06 06:50:53 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 85.71
+2025/12/06 06:50:53 INFO dspy.teleprompt.mipro_optimizer_v2: ========================
+
+
+2025/12/06 06:50:53 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 10 / 10 =====
+Average Metric: 24.00 / 28 (85.7%): 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████| 28/28 [00:00<00:00, 1433.20it/s]
+2025/12/06 06:50:53 INFO dspy.evaluate.evaluate: Average Metric: 24 / 28 (85.7%)
+2025/12/06 06:50:53 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 85.71 with parameters ['Predictor 0: Instruction 2', 'Predictor 0: Few-Shot Set 5'].
+2025/12/06 06:50:53 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [64.29, 78.57, 75.0, 85.71, 82.14, 75.0, 75.0, 85.71, 71.43, 85.71]
+2025/12/06 06:50:53 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 85.71
+2025/12/06 06:50:53 INFO dspy.teleprompt.mipro_optimizer_v2: =========================
+
+
+2025/12/06 06:50:53 INFO dspy.teleprompt.mipro_optimizer_v2: ===== Trial 11 / 10 =====
+Average Metric: 24.00 / 28 (85.7%): 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████| 28/28 [00:00<00:00, 2585.88it/s]
+2025/12/06 06:50:53 INFO dspy.evaluate.evaluate: Average Metric: 24 / 28 (85.7%)
+2025/12/06 06:50:53 INFO dspy.teleprompt.mipro_optimizer_v2: Score: 85.71 with parameters ['Predictor 0: Instruction 1', 'Predictor 0: Few-Shot Set 5'].
+2025/12/06 06:50:53 INFO dspy.teleprompt.mipro_optimizer_v2: Scores so far: [64.29, 78.57, 75.0, 85.71, 82.14, 75.0, 75.0, 85.71, 71.43, 85.71, 85.71]
+2025/12/06 06:50:53 INFO dspy.teleprompt.mipro_optimizer_v2: Best score so far: 85.71
+2025/12/06 06:50:53 INFO dspy.teleprompt.mipro_optimizer_v2: =========================
+
+
+2025/12/06 06:50:53 INFO dspy.teleprompt.mipro_optimizer_v2: Returning best identified program with score 85.71!
+最適化スコア: 85.71
+試行ログ: {1: {'full_eval_program_path': None, 'full_eval_score': 64.29, 'total_eval_calls_so_far': 28, 'full_eval_program': extract = Predict(HobbyExtraction(sentence -> hobby
+    instructions='趣味は？'
+    sentence = Field(annotation=str required=True json_schema_extra={'desc': '入力文章', '__dspy_field_type': 'input', 'prefix': 'Sentence:'})
+    hobby = Field(annotation=str required=True json_schema_extra={'desc': '抽出された趣味', '__dspy_field_type': 'output', 'prefix': 'Hobby:'})
+))}, 2: {'0_predictor_instruction': 1, '0_predictor_demos': 3, 'full_eval_program_path': None, 'full_eval_score': 78.57, 'total_eval_calls_so_far': 56, 'full_eval_program': extract = Predict(StringSignature(sentence -> hobby
+    instructions='Given a sentence, identify and return the hobby being described.  For example, if the input is "私はギターを練習しています", the output should be "ギター".'
+    sentence = Field(annotation=str required=True json_schema_extra={'desc': '入力文章', '__dspy_field_type': 'input', 'prefix': 'Sentence:'})
+    hobby = Field(annotation=str required=True json_schema_extra={'desc': '抽出された趣味', '__dspy_field_type': 'output', 'prefix': 'Hobby:'})
+))}, 3: {'0_predictor_instruction': 2, '0_predictor_demos': 0, 'full_eval_program_path': None, 'full_eval_score': 75.0, 'total_eval_calls_so_far': 84, 'full_eval_program': extract = Predict(StringSignature(sentence -> hobby
+    instructions='Given a sentence describing an activity, identify and extract the hobby being pursued. Return only the hobby name.'
+    sentence = Field(annotation=str required=True json_schema_extra={'desc': '入力文章', '__dspy_field_type': 'input', 'prefix': 'Sentence:'})
+    hobby = Field(annotation=str required=True json_schema_extra={'desc': '抽出された趣味', '__dspy_field_type': 'output', 'prefix': 'Hobby:'})
+))}, 4: {'0_predictor_instruction': 1, '0_predictor_demos': 5, 'full_eval_program_path': None, 'full_eval_score': 85.71, 'total_eval_calls_so_far': 112, 'full_eval_program': extract = Predict(StringSignature(sentence -> hobby
+    instructions='Given a sentence, identify and return the hobby being described.  For example, if the input is "私はギターを練習しています", the output should be "ギター".'
+    sentence = Field(annotation=str required=True json_schema_extra={'desc': '入力文章', '__dspy_field_type': 'input', 'prefix': 'Sentence:'})
+    hobby = Field(annotation=str required=True json_schema_extra={'desc': '抽出された趣味', '__dspy_field_type': 'output', 'prefix': 'Hobby:'})
+))}, 5: {'0_predictor_instruction': 2, '0_predictor_demos': 2, 'full_eval_program_path': None, 'full_eval_score': 82.14, 'total_eval_calls_so_far': 140, 'full_eval_program': extract = Predict(StringSignature(sentence -> hobby
+    instructions='Given a sentence describing an activity, identify and extract the hobby being pursued. Return only the hobby name.'
+    sentence = Field(annotation=str required=True json_schema_extra={'desc': '入力文章', '__dspy_field_type': 'input', 'prefix': 'Sentence:'})
+    hobby = Field(annotation=str required=True json_schema_extra={'desc': '抽出された趣味', '__dspy_field_type': 'output', 'prefix': 'Hobby:'})
+))}, 6: {'0_predictor_instruction': 0, '0_predictor_demos': 5, 'full_eval_program_path': None, 'full_eval_score': 75.0, 'total_eval_calls_so_far': 168, 'full_eval_program': extract = Predict(StringSignature(sentence -> hobby
+    instructions='趣味は？'
+    sentence = Field(annotation=str required=True json_schema_extra={'desc': '入力文章', '__dspy_field_type': 'input', 'prefix': 'Sentence:'})
+    hobby = Field(annotation=str required=True json_schema_extra={'desc': '抽出された趣味', '__dspy_field_type': 'output', 'prefix': 'Hobby:'})
+))}, 7: {'0_predictor_instruction': 2, '0_predictor_demos': 0, 'full_eval_program_path': None, 'full_eval_score': 75.0, 'total_eval_calls_so_far': 196, 'full_eval_program': extract = Predict(StringSignature(sentence -> hobby
+    instructions='Given a sentence describing an activity, identify and extract the hobby being pursued. Return only the hobby name.'
+    sentence = Field(annotation=str required=True json_schema_extra={'desc': '入力文章', '__dspy_field_type': 'input', 'prefix': 'Sentence:'})
+    hobby = Field(annotation=str required=True json_schema_extra={'desc': '抽出された趣味', '__dspy_field_type': 'output', 'prefix': 'Hobby:'})
+))}, 8: {'0_predictor_instruction': 2, '0_predictor_demos': 5, 'full_eval_program_path': None, 'full_eval_score': 85.71, 'total_eval_calls_so_far': 224, 'full_eval_program': extract = Predict(StringSignature(sentence -> hobby
+    instructions='Given a sentence describing an activity, identify and extract the hobby being pursued. Return only the hobby name.'
+    sentence = Field(annotation=str required=True json_schema_extra={'desc': '入力文章', '__dspy_field_type': 'input', 'prefix': 'Sentence:'})
+    hobby = Field(annotation=str required=True json_schema_extra={'desc': '抽出された趣味', '__dspy_field_type': 'output', 'prefix': 'Hobby:'})
+))}, 9: {'0_predictor_instruction': 1, '0_predictor_demos': 4, 'full_eval_program_path': None, 'full_eval_score': 71.43, 'total_eval_calls_so_far': 252, 'full_eval_program': extract = Predict(StringSignature(sentence -> hobby
+    instructions='Given a sentence, identify and return the hobby being described.  For example, if the input is "私はギターを練習しています", the output should be "ギター".'
+    sentence = Field(annotation=str required=True json_schema_extra={'desc': '入力文章', '__dspy_field_type': 'input', 'prefix': 'Sentence:'})
+    hobby = Field(annotation=str required=True json_schema_extra={'desc': '抽出された趣味', '__dspy_field_type': 'output', 'prefix': 'Hobby:'})
+))}, 10: {'0_predictor_instruction': 2, '0_predictor_demos': 5, 'full_eval_program_path': None, 'full_eval_score': 85.71, 'total_eval_calls_so_far': 280, 'full_eval_program': extract = Predict(StringSignature(sentence -> hobby
+    instructions='Given a sentence describing an activity, identify and extract the hobby being pursued. Return only the hobby name.'
+    sentence = Field(annotation=str required=True json_schema_extra={'desc': '入力文章', '__dspy_field_type': 'input', 'prefix': 'Sentence:'})
+    hobby = Field(annotation=str required=True json_schema_extra={'desc': '抽出された趣味', '__dspy_field_type': 'output', 'prefix': 'Hobby:'})
+))}, 11: {'0_predictor_instruction': 1, '0_predictor_demos': 5, 'full_eval_program_path': None, 'full_eval_score': 85.71, 'total_eval_calls_so_far': 308, 'full_eval_program': extract = Predict(StringSignature(sentence -> hobby
+    instructions='Given a sentence, identify and return the hobby being described.  For example, if the input is "私はギターを練習しています", the output should be "ギター".'
+    sentence = Field(annotation=str required=True json_schema_extra={'desc': '入力文章', '__dspy_field_type': 'input', 'prefix': 'Sentence:'})
+    hobby = Field(annotation=str required=True json_schema_extra={'desc': '抽出された趣味', '__dspy_field_type': 'output', 'prefix': 'Hobby:'})
+))}}
+Average Metric: 24.00 / 28 (85.7%): 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████| 28/28 [00:00<00:00, 5484.80it/s]
+2025/12/06 06:50:53 INFO dspy.evaluate.evaluate: Average Metric: 24 / 28 (85.7%)
+テストスコア: EvaluationResult(score=85.71, results=<list of 28 results>)
+Prediction(
+    hobby='合唱団'
+)
+Prediction(
+    hobby='競馬'
+)
+Prediction(
+    hobby='鳥の写真を撮る'
+)
+
+
+
+
+[2025-12-06T06:50:53.963612]
+
+System message:
+
+Your input fields are:
+1. `sentence` (str): 入力文章
+Your output fields are:
+1. `hobby` (str): 抽出された趣味
+All interactions will be structured in the following way, with the appropriate values filled in.
+
+[[ ## sentence ## ]]
+{sentence}
+
+[[ ## hobby ## ]]
+{hobby}
+
+[[ ## completed ## ]]
+In adhering to this structure, your objective is:
+        Given a sentence, identify and return the hobby being described.  For example, if the input is "私はギターを練習しています", the output should be "ギター".
+
+
+User message:
+
+[[ ## sentence ## ]]
+ミニ四駆を改造してレースに出ています
+
+
+Assistant message:
+
+[[ ## hobby ## ]]
+ミニ四駆
+
+[[ ## completed ## ]]
+
+
+User message:
+
+[[ ## sentence ## ]]
+ボーカルトレーニングをして歌が上手くなりたいです
+
+
+Assistant message:
+
+[[ ## hobby ## ]]
+ボーカルトレーニング
+
+[[ ## completed ## ]]
+
+
+User message:
+
+[[ ## sentence ## ]]
+ガーデニングをして、季節ごとの花を育てています
+
+
+Assistant message:
+
+[[ ## hobby ## ]]
+ガーデニング
+
+[[ ## completed ## ]]
+
+
+User message:
+
+[[ ## sentence ## ]]
+合唱団に入って歌を練習しています
+
+Respond with the corresponding output fields, starting with the field `[[ ## hobby ## ]]`, and then ending with the marker for `[[ ## completed ## ]]`.
+
+
+Response:
+
+[[ ## hobby ## ]]
+合唱団
+[[ ## completed ## ]]
+
+
+
+
+
+[2025-12-06T06:50:53.964160]
+
+System message:
+
+Your input fields are:
+1. `sentence` (str): 入力文章
+Your output fields are:
+1. `hobby` (str): 抽出された趣味
+All interactions will be structured in the following way, with the appropriate values filled in.
+
+[[ ## sentence ## ]]
+{sentence}
+
+[[ ## hobby ## ]]
+{hobby}
+
+[[ ## completed ## ]]
+In adhering to this structure, your objective is:
+        Given a sentence, identify and return the hobby being described.  For example, if the input is "私はギターを練習しています", the output should be "ギター".
+
+
+User message:
+
+[[ ## sentence ## ]]
+ミニ四駆を改造してレースに出ています
+
+
+Assistant message:
+
+[[ ## hobby ## ]]
+ミニ四駆
+
+[[ ## completed ## ]]
+
+
+User message:
+
+[[ ## sentence ## ]]
+ボーカルトレーニングをして歌が上手くなりたいです
+
+
+Assistant message:
+
+[[ ## hobby ## ]]
+ボーカルトレーニング
+
+[[ ## completed ## ]]
+
+
+User message:
+
+[[ ## sentence ## ]]
+ガーデニングをして、季節ごとの花を育てています
+
+
+Assistant message:
+
+[[ ## hobby ## ]]
+ガーデニング
+
+[[ ## completed ## ]]
+
+
+User message:
+
+[[ ## sentence ## ]]
+競馬のレースを観戦するのが趣味です
+
+Respond with the corresponding output fields, starting with the field `[[ ## hobby ## ]]`, and then ending with the marker for `[[ ## completed ## ]]`.
+
+
+Response:
+
+[[ ## hobby ## ]]
+競馬
+
+[[ ## completed ## ]]
+
+
+
+
+
+[2025-12-06T06:50:55.001691]
+
+System message:
+
+Your input fields are:
+1. `sentence` (str): 入力文章
+Your output fields are:
+1. `hobby` (str): 抽出された趣味
+All interactions will be structured in the following way, with the appropriate values filled in.
+
+[[ ## sentence ## ]]
+{sentence}
+
+[[ ## hobby ## ]]
+{hobby}
+
+[[ ## completed ## ]]
+In adhering to this structure, your objective is:
+        Given a sentence, identify and return the hobby being described.  For example, if the input is "私はギターを練習しています", the output should be "ギター".
+
+
+User message:
+
+[[ ## sentence ## ]]
+ミニ四駆を改造してレースに出ています
+
+
+Assistant message:
+
+[[ ## hobby ## ]]
+ミニ四駆
+
+[[ ## completed ## ]]
+
+
+User message:
+
+[[ ## sentence ## ]]
+ボーカルトレーニングをして歌が上手くなりたいです
+
+
+Assistant message:
+
+[[ ## hobby ## ]]
+ボーカルトレーニング
+
+[[ ## completed ## ]]
+
+
+User message:
+
+[[ ## sentence ## ]]
+ガーデニングをして、季節ごとの花を育てています
+
+
+Assistant message:
+
+[[ ## hobby ## ]]
+ガーデニング
+
+[[ ## completed ## ]]
+
+
+User message:
+
+[[ ## sentence ## ]]
+休日に散歩して鳥の写真を撮ります
+
+Respond with the corresponding output fields, starting with the field `[[ ## hobby ## ]]`, and then ending with the marker for `[[ ## completed ## ]]`.
+
+
+Response:
+
+[[ ## hobby ## ]]
+鳥の写真を撮る
+[[ ## completed ## ]]

@@ -12,7 +12,7 @@ dspy.configure(lm=lm)
 
 
 class HobbyExtraction(dspy.Signature):
-    """与えられた文章から趣味を抽出してください"""
+    """趣味は？"""
 
     # ↑ここに指示を書く↑
 
@@ -60,17 +60,24 @@ def hobby_metric(example, pred, trace=None):
 
 # MIPROv2で最適化
 optimizer = dspy.MIPROv2(
-    metric=hobby_metric, auto="light", num_threads=8  # light/medium/heavyから選択
+    metric=hobby_metric,
+    auto="light",  # light/medium/heavyから選択
+    num_threads=8,
+    track_stats=True,
 )
 
 optimized_extractor = optimizer.compile(
-    HobbyExtractor(), trainset=trainset, max_bootstrapped_demos=3, max_labeled_demos=2
+    HobbyExtractor(),
+    trainset=trainset,
+    valset=testset,
+    max_bootstrapped_demos=3,
+    max_labeled_demos=2,
 )
 
 # 最適化結果の確認
 print(f"最適化スコア: {optimized_extractor.score}")
 print(f"試行ログ: {optimized_extractor.trial_logs}")
-# 最適化後のプログラムを保存  
+# 最適化後のプログラムを保存
 optimized_extractor.save("optimized_hobby_extractor.json")
 
 
@@ -84,6 +91,11 @@ print(f"テストスコア: {score}")
 
 # 最適化されたプログラムを実行
 result = optimized_extractor(sentence="合唱団に入って歌を練習しています")
+print(result)
+result = optimized_extractor(sentence="競馬のレースを観戦するのが趣味です")
+print(result)
+result = optimized_extractor(sentence="休日に散歩して鳥の写真を撮ります")
+print(result)
 
 # 最後に使用されたプロンプトを表示
-dspy.inspect_history(n=1)
+dspy.inspect_history(n=3)
