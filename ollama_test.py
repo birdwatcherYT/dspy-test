@@ -17,29 +17,26 @@ def load_data(filepath: str) -> list[dict]:
 
 # fmt: off
 
-PROMPT = 'Given a sentence, identify and return the hobby being described.  For example, if the input is "私はギターを練習しています", the output should be "ギター".'
-# 温度デフォルト： テストデータ精度: 7.14%
-# 温度0.1： テストデータ精度: 10.71%
+PROMPT = 'Given a sentence describing a person’s activity, identify and state the hobby being practiced. Output only the hobby.'
+# テストデータ精度: 57.14%
 # few-shot examples追加
 EXAMPLES = [
-    {"sentence": "ミニ四駆を改造してレースに出ています", "hobby": "ミニ四駆"},
-    {"sentence": "ボーカルトレーニングをして歌が上手くなりたいです", "hobby": "ボーカルトレーニング"},
-    {"sentence": "ガーデニングをして、季節ごとの花を育てています", "hobby": "ガーデニング"},
+    {"sentence": "週末は公園でスケッチをして過ごします", "hobby": "スケッチ"},
+    {"sentence": "陶芸教室に通って、自分で器を作っています", "hobby": "陶芸"},
+    {"sentence": "旅行が好きで、日本全国を巡っています", "hobby": "旅行"}
 ]
-# 温度デフォルト： テストデータ精度: 78.57%
-# 温度0.1： テストデータ精度: 71.43%
+# テストデータ精度: 71.43%
 
 # PROMPT = "与えられた文章を見て趣味を抽出してください。1つの単語で表現してください。"
-# # 温度デフォルト： テストデータ精度: 10.71%
-# # 温度0.1： テストデータ精度: 14.29%
+# # PROMPT = "与えられた文章を見て趣味を1単語で表現してください。余計な説明は禁止します。"
+# # テストデータ精度: 46.43%
+# # few-shot examples追加
 # EXAMPLES = [
 #   {"sentence": "週末はキャンプに行って焚き火を楽しんでいます", "hobby": "キャンプ"},
 #   {"sentence": "バスケットボールをするのが趣味です", "hobby": "バスケットボール"},
 #   {"sentence": "休日に散歩して鳥の写真を撮ります", "hobby": "バードウォッチング"}
 # ]
-# # few-shot examples追加
-# # 温度デフォルト： テストデータ精度: 60.71%
-# # 温度0.1： テストデータ精度: 60.71%
+# # テストデータ精度: 60.71%
 
 # fmt: on
 
@@ -48,7 +45,7 @@ def create_hobby_extraction_chain():
     """趣味抽出用のチェーンを作成"""
     llm = ChatOllama(
         model="gemma3",
-        temperature=0.1,
+        # temperature=0.1,
     )
     example_prompt = ChatPromptTemplate.from_messages(
         [
@@ -99,7 +96,7 @@ def run_inference_and_evaluate(chain, data: list[dict], dataset_name: str):
         labels.append(label)
 
         # 結果を表示
-        match = "✓" if prediction == label else "✗"
+        match = "O" if prediction == label else "X"
         print(f"[{i+1:02d}] {match}")
         print(f"     文章: {sentence}")
         print(f"     予測: {prediction}")

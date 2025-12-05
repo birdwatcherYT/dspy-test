@@ -40,8 +40,11 @@ with open("train.json", "r", encoding="utf-8") as f:
 with open("test.json", "r", encoding="utf-8") as f:
     test = json.load(f)
 
-# データ分割
-trainset = [dspy.Example(**d).with_inputs("sentence") for d in train]
+# データ分割（trainを80:20でtrain/validationに分割）
+all_train = [dspy.Example(**d).with_inputs("sentence") for d in train]
+split_idx = int(len(all_train) * 0.8)
+trainset = all_train[:split_idx]
+valset = all_train[split_idx:]
 testset = [dspy.Example(**d).with_inputs("sentence") for d in test]
 
 
@@ -69,7 +72,7 @@ optimizer = dspy.MIPROv2(
 optimized_extractor = optimizer.compile(
     HobbyExtractor(),
     trainset=trainset,
-    valset=testset,
+    valset=valset,
     max_bootstrapped_demos=3,
     max_labeled_demos=2,
 )

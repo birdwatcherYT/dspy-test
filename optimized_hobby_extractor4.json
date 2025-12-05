@@ -5,22 +5,22 @@
     "demos": [
       {
         "augmented": true,
-        "sentence": "週末は公園でスケッチをして過ごします",
-        "hobby": "スケッチ"
+        "sentence": "ミニ四駆を改造してレースに出ています",
+        "hobby": "ミニ四駆"
       },
       {
         "augmented": true,
-        "sentence": "陶芸教室に通って、自分で器を作っています",
-        "hobby": "陶芸"
+        "sentence": "ボーカルトレーニングをして歌が上手くなりたいです",
+        "hobby": "ボーカルトレーニング"
       },
       {
         "augmented": true,
-        "sentence": "旅行が好きで、日本全国を巡っています",
-        "hobby": "旅行"
+        "sentence": "ガーデニングをして、季節ごとの花を育てています",
+        "hobby": "ガーデニング"
       }
     ],
     "signature": {
-      "instructions": "Given a sentence describing a person’s activity, identify and state the hobby being practiced. Output only the hobby.",
+      "instructions": "Given a sentence, identify and return the hobby being described.  For example, if the input is \"私はギターを練習しています\", the output should be \"ギター\".",
       "fields": [
         {
           "prefix": "Sentence:",
